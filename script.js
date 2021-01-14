@@ -4,7 +4,7 @@ document.getElementById('firstname').addEventListener('keyup', () => {
 	
 	if(!validate(firstnameValue, 2)) {
 		document.getElementById('firstname').style.borderColor = "red";
-		document.getElementById('fn-small').innerText = "Fyll i förnamn!";
+		document.getElementById('fn-small').innerText = "Firstname is required!";
 		document.getElementById('fn-small').style.color = "red";
 
 	} else {
@@ -20,7 +20,7 @@ document.getElementById('lastname').addEventListener('keyup', (e) => {
 	
 	if(!validate(lastnameValue, 2)) {
 		document.getElementById('lastname').style.borderColor = "red";
-		document.getElementById('ln-small').innerText = "Fyll i förnamn!";
+		document.getElementById('ln-small').innerText = "Lastname is required!";
 		document.getElementById('ln-small').style.color = "red";
 	
 	} else {
@@ -36,12 +36,12 @@ document.getElementById('email').addEventListener('keyup', (e) => {
 	
 	if(!validate(emailValue ,''))  {
 		document.getElementById('email').style.borderColor = "red";
-		document.getElementById('e-small').innerText = "Fyll i förnamn!"; 
+		document.getElementById('e-small').innerText = "Email is required!"; 
 		document.getElementById('e-small').style.color = "red";
 	
     } else if (!isEmail(emailValue)) {
 		document.getElementById('email').style.borderColor = "red";
-		document.getElementById('e-small').innerText = "Fyll i förnamn!";
+		document.getElementById('e-small').innerText = "Not a valid email! (email@example.com)";
 		document.getElementById('e-small').style.color = "red"; 
 	
     } else {
@@ -57,12 +57,12 @@ document.getElementById('phonenumber').addEventListener('keyup', (e) => {
 	
 	if(!validate(phonenumberValue, 10)) {
 		document.getElementById('phonenumber').style.borderColor = "red";
-		document.getElementById('ph-small').innerText = "Fyll i förnamn!"; 
+		document.getElementById('ph-small').innerText = "Phonenumber is required!"; 
 		document.getElementById('ph-small').style.color = "red";
 	
     } else if (isNaN(phonenumberValue))  {
 		document.getElementById('phonenumber').style.borderColor = "red";
-		document.getElementById('ph-small').innerText = "Fyll i förnamn!";
+		document.getElementById('ph-small').innerText = "Must contain a min. of 10 digits!";
 		document.getElementById('ph-small').style.color = "red"; 
 	
     } else {
