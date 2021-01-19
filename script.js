@@ -9,8 +9,7 @@ document.getElementById('firstname').addEventListener('keyup', () => {
 
 	} else {
 		document.getElementById('firstname').style.borderColor = "green";
-        document.getElementById('fn-small').innerText = "";
-		
+        document.getElementById('fn-small').innerText = "";		
     }
 });
 
@@ -25,8 +24,7 @@ document.getElementById('lastname').addEventListener('keyup', (e) => {
 	
 	} else {
 		document.getElementById('lastname').style.borderColor = "green";
-        document.getElementById('ln-small').innerText = "";
-		
+        document.getElementById('ln-small').innerText = "";		
     }
 });
 
@@ -46,8 +44,7 @@ document.getElementById('email').addEventListener('keyup', (e) => {
 	
     } else {
 		document.getElementById('email').style.borderColor = "green";
-		document.getElementById('e-small').innerText = "";
-	
+		document.getElementById('e-small').innerText = "";	
     }
 });
 
@@ -67,8 +64,7 @@ document.getElementById('phonenumber').addEventListener('keyup', (e) => {
 	
     } else {
 		document.getElementById('phonenumber').style.borderColor = "green";
-		document.getElementById('ph-small').innerText = "";
-		
+		document.getElementById('ph-small').innerText = "";		
     }
 });
 
@@ -78,13 +74,12 @@ document.getElementById('streetadress').addEventListener('keyup', (e) => {
 	
 	if(!validate(streetadressValue, 2))  {
 		document.getElementById('streetadress').style.borderColor = "red";
-		document.getElementById('a-small').innerText = "Fyll i förnamn!";
+		document.getElementById('a-small').innerText = "Street adress is required!";
 		document.getElementById('a-small').style.color = "red";
 	
 	} else {
 		document.getElementById('streetadress').style.borderColor = "green";
-		document.getElementById('a-small').innerText = "";
-	
+		document.getElementById('a-small').innerText = "";	
     }
 });
 
@@ -94,18 +89,17 @@ document.getElementById('postalcode').addEventListener('keyup', (e) => {
 	
 	if(!validate(postalcodeValue, 5)) {
 		document.getElementById('postalcode').style.borderColor = "red";
-		document.getElementById('pc-small').innerText = "Fyll i förnamn!";
+		document.getElementById('pc-small').innerText = "Postal code is required!";
 		document.getElementById('pc-small').style.color = "red";  
 	
     } else if (isNaN(postalcodeValue))  {
 		document.getElementById('postalcode').style.borderColor = "red";
-		document.getElementById('pc-small').innerText = "Fyll i förnamn!"; 
+		document.getElementById('pc-small').innerText = "Postal code is required!"; 
 		document.getElementById('pc-small').style.color = "red";
 	
     } else {
 		document.getElementById('postalcode').style.borderColor = "green";
-		document.getElementById('pc-small').innerText = "";
-	
+		document.getElementById('pc-small').innerText = "";	
     }
 });
 
@@ -115,22 +109,45 @@ document.getElementById('city').addEventListener('keyup', (e) => {
 	
     if(!validate(cityValue, 2)) {
 		document.getElementById('city').style.borderColor = "red";
-		document.getElementById('c-small').innerText = "Fyll i förnamn!";
+		document.getElementById('c-small').innerText = "City is required!";
 		document.getElementById('c-small').style.color = "red";
 	
 	} else {
 		document.getElementById('city').style.borderColor = "green";
-		document.getElementById('c-small').innerText = "";
-	
+		document.getElementById('c-small').innerText = "";	
 	}
-
 	
 });
 
 
 
+class User {
+	constructor(firstname, lastname, email, phonenumber, streetadress, postalcode, city) {
+		this.firstname = firstname
+		this.lastname = lastname
+		this.email = email
+		this.phonenumber = phonenumber
+		this.streetadress = streetadress
+		this.postalcode = postalcode		
+		this.city = city
+	}
+	get id() {
+		return this.create_UUID
+	}
+}	
 
-	
+
+let users = []
+let user = new User;
+
+
+let inputs = document.querySelectorAll('input');
+document.getElementById('button').addEventListener('click', () => {
+	saveUser()
+	inputs.forEach(input => input.style.removeProperty('border'))
+});
+
+// functions
 function isEmail(email) {
 	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
@@ -153,34 +170,6 @@ function validate(value, min) {
 } 
 
 
-class User {
-	constructor(firstname, lastname, email, city) {
-		this.firstname = firstname
-		this.lastname = lastname
-		this.email = email
-		this.city = city	
-
-	}
-	get id() {
-		return this.create_UUID
-	}
-	get displayName(){
-		return `${this.firstname} ${this.lastname}`
-	}
-}	
-
-
-let users = []
-user = new User;
-
-
-
-let inputs = document.querySelectorAll('input');
-document.getElementById('button').addEventListener('click', () => {
-	saveUser()
-	inputs.forEach(input => input.style.removeProperty('border'))
-});
-
 function saveUser(){
 
 
@@ -189,6 +178,9 @@ function saveUser(){
 		firstname: document.getElementById('firstname').value,
 		lastname: document.getElementById('lastname').value,
 		email: document.getElementById('email').value,
+		phonenumber: document.getElementById('phonenumber').value, 
+		streetadress: document.getElementById('streetadress').value, 
+		postalcode: document.getElementById('postalcode').value, 
 		city: document.getElementById('city').value
 	};
 
@@ -200,19 +192,16 @@ function saveUser(){
 
 	document.getElementById('button').disabled = true;
 	document.getElementById('form').reset();
-
 }
 
  
-
-// //Funktioner
 function createElement () {
-	// CREATE ELEMENT
+	//create elements
 	userDiv = document.createElement('div')
 	flipDiv = document.createElement('div')
 	panelDiv = document.createElement('div')
 	
-	// 	// GER DEM CLASS & ID
+	//set class and set id to the elements
 	flipDiv.className = "flip"
 	panelDiv.className = "panel"
 	userDiv.id = `${user.id}`
@@ -222,13 +211,14 @@ function createElement () {
 		
 	flipDiv.innerText = `${user.firstname}` + ` ${user.lastname}`
 
-	// 	  // LÄGGER TILL I DOM:EN
+	//adding the elements to DOM
 	var currentDiv = document.getElementById('users');
 	currentDiv.appendChild(userDiv)
 	userDiv.appendChild(flipDiv)
 	userDiv.appendChild(panelDiv)
 }
 
+//Filling the created elements with user info
 function fillPanel() {
 
 	idElement = document.createElement("p")
@@ -237,29 +227,42 @@ function fillPanel() {
 	emailElement = document.createElement("p")
 	emailElement.innerText = `E-mail: ${user.email}`
 	emailElement.id = `${user.id}-email`
+
+	phonenumberElement = document.createElement("p")
+	phonenumberElement.innerText = `Phonenumber: ${user.phonenumber}`
+	phonenumberElement.id = `${user.id}-phonenumber`
+
+	streetadressElement = document.createElement("p")
+	streetadressElement.innerText = `Streetadress: ${user.streetadress}`
+	streetadressElement.id = `${user.id}-streetadress`
+
+	postalcodeElement = document.createElement("p")
+	postalcodeElement.innerText = `Postalcode: ${user.postalcode}`
+	postalcodeElement.id = `${user.id}-postalcode`
 	
 	cityElement = document.createElement("p")
 	cityElement.innerText = `City: ${user.city}`
 	cityElement.id = `${user.id}-city`
-  
+	  
   
 	panelDiv.appendChild(idElement)
 	panelDiv.appendChild(emailElement)
-	panelDiv.appendChild(cityElement)
-  
+	panelDiv.appendChild(phonenumberElement)
+	panelDiv.appendChild(streetadressElement)
+	panelDiv.appendChild(postalcodeElement)
+	panelDiv.appendChild(cityElement)	 
 }
 
 
 
-// //JQuery
+//JQuery
 
-
-
-	// Förhindrar reg-form från att refresha sidan när "Lägg till" trycks
+	// prevent the browser from executing the default action 
 	$("#form").submit(function(e) {
 		e.preventDefault();
 	});
-	
+
+	//setting jquery toggle
 	$("body").delegate(".flip", "click", function(){
 		$('.panel').not($(this).next(".panel").slideToggle("slow")).slideUp("slow");
 	});
